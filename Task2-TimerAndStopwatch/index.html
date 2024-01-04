@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timer and Stopwatch</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="timer-stopwatch-app">
+            <h2>Timer and Stopwatch</h2>
+            <div class="row">
+                <button onclick="toggle('timer')">Timer</button>
+                <button onclick="toggle('stopwatch')">Stopwatch</button>
+            </div>
+        </div>
+    </div>
+
+
+
+  
+
+  
+
+  <!-- Timer -->
+  <div id="timer">
+    <label for="timerInput">Set Timer (seconds): </label>
+    <input type="number" id="timerInput" min="1" step="1" placeholder="Enter seconds">
+    <button onclick="startTimer()">Start</button>
+    <button onclick="resetTimer()">Reset</button>
+    <div id="timerDisplay">00:00</div>
+  </div>
+
+  <!-- Stopwatch -->
+  <div id="stopwatch">
+    <button onclick="startStopwatch()">Start</button>
+    <button onclick="recordLap()">Lap</button>
+    <button onclick="resetStopwatch()">Reset</button>
+    <div id="stopwatchDisplay">00:00</div>
+    <ul id="laps"></ul>
+  </div>
+
+  <script>
+    let timerInterval;
+    let stopwatchInterval;
+    let timerSeconds;
+    let stopwatchSeconds;
+    let lapCount = 1;
+
+    function toggle(view) {
+      document.getElementById('timer').style.display = view === 'timer' ? 'block' : 'none';
+      document.getElementById('stopwatch').style.display = view === 'stopwatch' ? 'block' : 'none';
+    }
+
+    function startTimer() {
+      const inputSeconds = parseInt(document.getElementById('timerInput').value, 10);
+      if (isNaN(inputSeconds) || inputSeconds <= 0) {
+        alert('Please enter a valid number greater than 0.');
+        return;
+      }
+
+      timerSeconds = inputSeconds;
+      updateTimerDisplay();
+
+      timerInterval = setInterval(function() {
+        timerSeconds--;
+        updateTimerDisplay();
+
+        if (timerSeconds <= 0) {
+          clearInterval(timerInterval);
+          alert('Timer has ended!');
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timerSeconds / 60);
+      const seconds = timerSeconds % 60;
+      document.getElementById('timerDisplay').innerText = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      document.getElementById('timerInput').value = '';
+      document.getElementById('timerDisplay').innerText = '00:00';
+    }
+
+    function startStopwatch() {
+      stopwatchSeconds = 0;
+      updateStopwatchDisplay();
+
+      stopwatchInterval = setInterval(function() {
+        stopwatchSeconds++;
+        updateStopwatchDisplay();
+      }, 1000);
+    }
+
+    function updateStopwatchDisplay() {
+      const minutes = Math.floor(stopwatchSeconds / 60);
+      const seconds = stopwatchSeconds % 60;
+      document.getElementById('stopwatchDisplay').innerText = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }
+
+    function recordLap() {
+      const lapTime = document.getElementById('stopwatchDisplay').innerText;
+      const lapItem = document.createElement('li');
+      lapItem.innerText = `Lap ${lapCount}: ${lapTime}`;
+      document.getElementById('laps').appendChild(lapItem);
+      lapCount++;
+    }
+
+    function resetStopwatch() {
+      clearInterval(stopwatchInterval);
+      document.getElementById('stopwatchDisplay').innerText = '00:00';
+      document.getElementById('laps').innerHTML = '';
+      lapCount = 1;
+    }
+  </script>
+</body>
+</html>
