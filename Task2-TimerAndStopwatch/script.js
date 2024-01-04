@@ -25,6 +25,8 @@ function startTimer() {
 
     if (timerSeconds <= 0) {
         clearInterval(timerInterval);
+
+        document.getElementById('alert-sound').play();
         alert('Timer has ended!');
     }
     }, 1000);
