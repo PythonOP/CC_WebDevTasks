@@ -11,3 +11,10 @@ A simple To-do application
 ## Code Clause Task 2
 Timer and Stopwatch
 ### Features
+- [x] Toggle between timer and stopwatch
+- [x] Start and Reset logic for the timer
+- [x] Start and Reset logic for stopwatch
+- [x] The app can record Laps using a dedicated button
+- [x] Display the laps on to a list
+- [x] Alert the user once the time runs out for the timer
+### Screenshot
