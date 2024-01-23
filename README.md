@@ -24,5 +24,5 @@ Notifies the user with a alarm sound and a alert message.
 Keeps track of laps upon trigger of lap button
 ![image](https://github.com/PythonOP/CC_WebDevTasks/assets/67553065/ca3d2623-b95c-4774-8013-42ddb7af9b21)
 
-##YouTube Clone
+## YouTube Clone
 Project moved to https://github.com/PythonOP/youtube-clone-reactjs 
